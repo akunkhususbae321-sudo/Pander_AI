@@ -1,2 +1,1 @@
-# Pander_AI
-AI buatan Rifki, 
+halaman2.html
