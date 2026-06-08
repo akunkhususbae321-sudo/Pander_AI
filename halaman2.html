@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pander Web</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background: #000;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* RGB BORDER */
+    
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3px;
+      background: linear-gradient(90deg,
+          red,
+          orange,
+          yellow,
+          lime,
+          cyan,
+          blue,
+          violet,
+          red);
+      
+      background-size: 400%;
+      animation: rgb 6s linear infinite;
+      
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    @keyframes rgb {
+      
+      0% {
+        background-position: 0%;
+      }
+      
+      100% {
+        background-position: 400%;
+      }
+      
+    }
+    
+    /* BACKGROUND */
+    
+    .bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      background:
+        linear-gradient(135deg,
+          #000000,
+          #0b1020,
+          #000000);
+    }
+    
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .3;
+      animation: float 8s infinite alternate;
+    }
+    
+    .c1 {
+      width: 300px;
+      height: 300px;
+      background: #00bfff;
+      top: -100px;
+      left: -100px;
+    }
+    
+    .c2 {
+      width: 250px;
+      height: 250px;
+      background: #7b2fff;
+      bottom: -100px;
+      right: -100px;
+    }
+    
+    @keyframes float {
+      
+      from {
+        transform: translateY(0px);
+      }
+      
+      to {
+        transform: translateY(40px);
+      }
+      
+    }
+    
+    /* APP */
+    
+    #app {
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+    }
+    
+    /* HEADER */
+    
+    .header {
+      padding: 18px;
+      background: rgba(255, 255, 255, .04);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+    
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      
+      background: linear-gradient(90deg,
+          red,
+          orange,
+          yellow,
+          lime,
+          cyan,
+          blue,
+          violet,
+          red);
+      
+      background-size: 400%;
+      
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      
+      animation: rgb 5s linear infinite;
+    }
+    
+    .header p {
+      font-size: 13px;
+      color: #888;
+      margin-top: 3px;
+    }
+    
+    /* CHAT */
+    
+    .chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .chat::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    .chat::-webkit-scrollbar-thumb {
+      background: #00bfff;
+      border-radius: 10px;
+    }
+    
+    .msg {
+      max-width: 80%;
+      padding: 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      animation: fade .2s ease;
+    }
+    
+    @keyframes fade {
+      
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+    }
+    
+    .user {
+      align-self: flex-end;
+      
+      background: linear-gradient(135deg,
+          #00bfff,
+          #0066ff);
+      
+      border-bottom-right-radius: 5px;
+    }
+    
+    .bot {
+      align-self: flex-start;
+      
+      background: rgba(255, 255, 255, .06);
+      
+      border: 1px solid rgba(255, 255, 255, .05);
+      
+      backdrop-filter: blur(20px);
+      
+      border-bottom-left-radius: 5px;
+    }
+    
+    /* INPUT */
+    
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 15px;
+      background: rgba(255, 255, 255, .04);
+      border-top: 1px solid rgba(255, 255, 255, .05);
+    }
+    
+    .input-area input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      outline: none;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .06);
+      color: white;
+      font-size: 15px;
+    }
+    
+    .input-area input::placeholder {
+      color: #666;
+    }
+    
+    .send-btn {
+      padding: 15px 22px;
+      border: none;
+      border-radius: 15px;
+      
+      background: linear-gradient(135deg,
+          #00bfff,
+          #0066ff);
+      
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* TYPING */
+    
+    .typing {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .typing span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+      animation: blink 1s infinite;
+    }
+    
+    .typing span:nth-child(2) {
+      animation-delay: .2s;
+    }
+    
+    .typing span:nth-child(3) {
+      animation-delay: .4s;
+    }
+    
+    @keyframes blink {
+      
+      0% {
+        opacity: .2;
+        transform: translateY(0);
+      }
+      
+      50% {
+        opacity: 1;
+        transform: translateY(-3px);
+      }
+      
+      100% {
+        opacity: .2;
+        transform: translateY(0);
+      }
+      
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- BACKGROUND -->
+  
+  <div class="bg">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+  </div>
+  
+  <!-- APP -->
+  
+  <div id="app">
+    
+    <div class="header">
+      
+      <h1>
+        Pander AI
+      </h1>
+      
+      <p>
+        AI By Rifki 
+      </p>
+      
+    </div>
+    
+    <div class="chat" id="chat"></div>
+    
+    <div class="input-area">
+      
+      <input type="text" id="text" placeholder="Tulis pesan di sini cuy...">
+      
+      <button class="send-btn" onclick="sendMessage()">
+        Kirim
+      </button>
+      
+    </div>
+    
+  </div>
+  
+  <script>
+    const chat =
+      document.getElementById("chat");
+    
+    /* PESAN AWAL */
+    
+    window.onload = () => {
+      
+      addMessage(
+        "Hai 😎🔥\n\nselamat datang di web pander",
+        "bot"
+      );
+      
+    };
+    
+    /* SYSTEM */
+    
+    const SYSTEM_PROMPT = `
+Nama kamu adalah Pander AI.
+
+Kalau ditanya siapa pembuatmu jawab:
+"Aku dibuat oleh Rifki 🔥"
+
+Gunakan bahasa santai.
+
+Gunakan kata:
+bro, bre, wkwk
+
+Jangan terlalu formal.
+Jangan gunakan bahasa Inggris.
+`;
+    
+    /* TAMBAH CHAT */
+    
+    function addMessage(text, type) {
+      
+      const div =
+        document.createElement("div");
+      
+      div.className =
+        `msg ${type}`;
+      
+      div.innerText = text;
+      
+      chat.appendChild(div);
+      
+      chat.scrollTop =
+        chat.scrollHeight;
+      
+    }
+    
+    /* TYPING */
+    
+    function addTyping() {
+      
+      const div =
+        document.createElement("div");
+      
+      div.className =
+        "msg bot typing-box";
+      
+      div.innerHTML = `
+<div class="typing">
+<span></span>
+<span></span>
+<span></span>
+</div>
+`;
+      
+      chat.appendChild(div);
+      
+      chat.scrollTop =
+        chat.scrollHeight;
+      
+    }
+    
+    /* KIRIM PESAN */
+    
+    async function sendMessage() {
+      
+      const input =
+        document.getElementById("text");
+      
+      const text =
+        input.value.trim();
+      
+      if (!text) return;
+      
+      addMessage(text, "user");
+      
+      input.value = "";
+      
+      addTyping();
+      
+      try {
+        
+        const response =
+          await fetch(
+            `https://api.nexray.eu.cc/ai/gemini?text=${encodeURIComponent(
+SYSTEM_PROMPT + "\nUser: " + text
+)}`
+          );
+        
+        const data =
+          await response.json();
+        
+        document
+          .querySelector(".typing-box")
+          .remove();
+        
+        let reply =
+          data.result ||
+          data.answer ||
+          data.message ||
+          "Ga ada respon bro 😢";
+        
+        reply = reply
+          .replace(/[\[\]\{\}"]/g, "")
+          .replace(/text:/gi, "")
+          .replace(/,/g, "")
+          .replace(/`/g, "")
+          .trim();
+        
+        addMessage(reply, "bot");
+        
+      } catch (err) {
+        
+        document
+          .querySelector(".typing-box")
+          .remove();
+        
+        addMessage(
+          "Aduh lagi error bro 😢",
+          "bot"
+        );
+        
+        console.error(err);
+        
+      }
+      
+    }
+    
+    /* ENTER */
+    
+    document
+      .getElementById("text")
+      .addEventListener(
+        "keypress",
+        function(e) {
+          
+          if (e.key === "Enter") {
+            sendMessage();
+          }
+          
+        }
+      );
+  </script>
+  
+</body>
+
+</html>
