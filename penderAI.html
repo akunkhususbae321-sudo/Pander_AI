@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RGB Login</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+    }
+    
+    .rgb-border {
+      position: relative;
+      width: 95%;
+      max-width: 420px;
+      height: 90vh;
+      border-radius: 35px;
+      padding: 3px;
+      overflow: hidden;
+    }
+    
+    .rgb-border::before {
+      content: '';
+      position: absolute;
+      width: 300%;
+      height: 300%;
+      left: -100%;
+      top: -100%;
+      background: conic-gradient(red,
+          orange,
+          yellow,
+          lime,
+          cyan,
+          blue,
+          violet,
+          red);
+      animation: rgbRotate 4s linear infinite;
+    }
+    
+    .rgb-border::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      background: #000;
+      border-radius: 32px;
+      z-index: 1;
+    }
+    
+    @keyframes rgbRotate {
+      from {
+        transform: rotate(0deg);
+      }
+      
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .login-box {
+      width: 85%;
+      text-align: center;
+    }
+    
+    .logo {
+      width: 110px;
+      height: 110px;
+      margin: auto;
+      border-radius: 30px;
+      background: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, .4);
+      box-shadow:
+        0 0 20px rgba(255, 255, 255, .2),
+        0 0 50px rgba(255, 255, 255, .15);
+    }
+    
+    .logo i {
+      color: #ff0000;
+      font-size: 45px;
+    }
+    
+    h1 {
+      color: white;
+      margin-top: 30px;
+      font-size: 42px;
+      font-weight: 700;
+    }
+    
+    .subtitle {
+      color: #9c9c9c;
+      margin-top: 10px;
+      letter-spacing: 3px;
+      font-size: 18px;
+    }
+    
+    .input-group {
+      margin-top: 35px;
+      position: relative;
+    }
+    
+    .input-group input {
+      width: 100%;
+      height: 70px;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .08);
+      color: white;
+      padding-left: 65px;
+      padding-right: 60px;
+      font-size: 20px;
+    }
+    
+    .input-group i {
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bdbdbd;
+      font-size: 22px;
+    }
+    
+    .eye {
+      left: auto !important;
+      right: 25px;
+      cursor: pointer;
+    }
+    
+    .login-btn {
+      width: 100%;
+      height: 75px;
+      border: none;
+      border-radius: 25px;
+      margin-top: 35px;
+      background: #d9d9d9;
+      color: #444;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow:
+        0 0 20px rgba(255, 255, 255, .25);
+      transition: .3s;
+    }
+    
+    .login-btn:hover {
+      transform: scale(1.02);
+    }
+    
+    #errorText {
+      text-align: center;
+      margin-top: 12px;
+      min-height: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .developer-contact {
+      margin-top: 15px;
+      text-align: center;
+      color: #9c9c9c;
+      font-size: 15px;
+    }
+    
+    .developer-contact a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .developer-contact a:hover {
+      color: #00ff88;
+      text-shadow: 0 0 10px #00ff88;
+    }
+    
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, .05);
+      filter: blur(120px);
+    }
+    
+    .glow.top {
+      top: 10%;
+    }
+    
+    .glow.bottom {
+      bottom: 10%;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="rgb-border">
+    
+    <div class="glow top"></div>
+    <div class="glow bottom"></div>
+    
+    <div class="container">
+      
+      <div class="login-box">
+        
+        <div class="logo">
+          <i class="fa-solid fa-diamond"></i>
+        </div>
+        
+        <h1>Pander</h1>
+        <div class="subtitle">Sign in to continue</div>
+        
+        <div class="input-group">
+          <i class="fa-regular fa-user"></i>
+          <input type="text" id="username" placeholder="Username">
+        </div>
+        
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="password" placeholder="Password">
+          
+          <i class="fa-solid fa-eye-slash eye" onclick="togglePassword()" id="eye"></i>
+        </div>
+        
+        <button class="login-btn" onclick="login()">
+          Sign In
+        </button>
+        
+        <p id="errorText"></p>
+        
+        <div class="developer-contact">
+          Belum punya akses?
+          <a href="https://wa.me/6285691633650?text=Halo%20Developer,%20saya%20ingin%20meminta%20akses." target="_blank">
+            Hubungi Developer
+          </a>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  <script>
+    function togglePassword() {
+      const password = document.getElementById("password");
+      const eye = document.getElementById("eye");
+      
+      if (password.type === "password") {
+        password.type = "text";
+        eye.classList.remove("fa-eye-slash");
+        eye.classList.add("fa-eye");
+      } else {
+        password.type = "password";
+        eye.classList.remove("fa-eye");
+        eye.classList.add("fa-eye-slash");
+      }
+    }
+    
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const errorText = document.getElementById("errorText");
+      
+      if (username === "Rifki" && password === "Mbuhlah") {
+        
+        errorText.style.color = "#00ff88";
+        errorText.textContent = "✓ Login berhasil, tunggu sebentar...";
+        
+        setTimeout(() => {
+  // Ubah dari "halaman2.html" menjadi alamat lengkap penyimpanan internal
+  window.location.href = "file:///storage/emulated/0/pender/halaman2.html";
+}, 1000);
+
+        
+      } else {
+        
+        errorText.style.color = "#ff3b3b";
+        errorText.textContent = "❌ Username atau Password salah!";
+        
+      }
+    }
+    
+    document.getElementById("username").addEventListener("input", () => {
+      document.getElementById("errorText").textContent = "";
+    });
+    
+    document.getElementById("password").addEventListener("input", () => {
+      document.getElementById("errorText").textContent = "";
+    });
+  </script>
+  
+</body>
+
+</div>
